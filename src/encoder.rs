@@ -1,8 +1,9 @@
 use num_traits::CheckedSub;
 
 impl<T: CheckedSub + Copy> DeltaEncoder<T> {
-    pub fn encode(&mut self, value: T) -> T {
-        let delta = value.checked_sub(&self.current).unwrap();
+    pub fn encode(&mut self, value: T) -> Option<T> {
+        let delta = value.checked_sub(&self.current);
+        delta?;
         self.current = value;
         delta
     }
@@ -35,7 +36,11 @@ where
 
     fn next(&mut self) -> Option<Self::Item> {
         match self.iter.next() {
-            Some(v) => Some(self.encoder.encode(v)),
+            Some(v) => Some(
+                self.encoder
+                    .encode(v)
+                    .expect("delta exceeded maximum allowed value"),
+            ),
             None => None,
         }
     }

@@ -10,10 +10,18 @@ pub use decoder::DeltaDecoder;
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::iter::zip;
 
     fn run(original: &[i64], encoded: &[i64]) {
+        assert_eq!(original.len(), encoded.len());
+
         let mut dlt = DeltaEncoder::default();
-        let result: Vec<i64> = original.iter().map(|&v| dlt.encode(v)).collect();
+        for (&orig, &enc) in zip(original, encoded) {
+            assert_eq!(dlt.encode(orig).unwrap(), enc);
+        }
+
+        let mut dlt = DeltaEncoder::default();
+        let result: Vec<i64> = original.iter().map(|&v| dlt.encode(v).unwrap()).collect();
         assert_eq!(result, encoded, "encoded from: {original:?}");
 
         let mut dlt = DeltaDecoder::default();
