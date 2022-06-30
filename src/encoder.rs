@@ -1,11 +1,16 @@
 use num_traits::CheckedSub;
 
 impl<T: CheckedSub + Copy> DeltaEncoder<T> {
+    /// Encode a value, and return the delta between the current value and the encoded value.
+    /// Will return None if the value is too large to encode.
     pub fn encode(&mut self, value: T) -> Option<T> {
-        let delta = value.checked_sub(&self.current);
-        delta?;
-        self.current = value;
-        delta
+        match value.checked_sub(&self.current) {
+            Some(delta) => {
+                self.current = value;
+                Some(delta)
+            }
+            None => None,
+        }
     }
 }
 
@@ -56,6 +61,7 @@ where
 {
     /// Construct a delta-encoded iterator from an iterator.
     /// The first element of the iterator is used as the starting point for the delta-encoding.
+    /// Note that unlike the [`DeltaEncoder.encode`] method, this method will panic if the delta is too large.
     ///
     /// ## Example
     /// ```

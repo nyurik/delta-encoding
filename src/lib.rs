@@ -31,9 +31,8 @@ mod tests {
         let result: Vec<i64> = original.iter().copied().to_deltas().collect();
         assert_eq!(result, encoded, "into_iter() original: {original:?}");
 
-        // TODO: implement non-consuming iterator
-        // let data = original.to_vec();
-        // let encoded: Vec<i64> = data.iter().to_deltas().collect();
+        // TODO: allow non-consuming iterator
+        // let encoded: Vec<i64> = original.iter().to_deltas().collect();
         // assert_eq!(encoded, encoded, "iter() original: {original:?}");
     }
 
