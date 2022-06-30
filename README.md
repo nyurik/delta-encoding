@@ -26,12 +26,12 @@ pub fn main() {
 ```
 
 ## Development
+All of these must succeed:
 ```bash
-# Testing
-cargo test
-
-# Benchmarking
-cargo +nightly bench
+cargo test    # Testing
+cargo bench   # Benchmarking
+cargo fmt     # Code format
+cargo clippy  # Code lints
 ```
 
 ## TODO
