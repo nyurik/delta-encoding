@@ -14,7 +14,7 @@ impl<T: WrappingAdd + Copy> DeltaDecoder<T> {
 }
 
 /// A utility struct to construct a delta-decoder sequence from an iterator.
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 #[must_use = "iterator adaptors are lazy and do nothing unless consumed"]
 pub struct DeltaDecoderIter<I>
 where
