@@ -73,7 +73,7 @@ where
 {
     /// Construct a delta-encoded iterator from an iterator.
     /// The first element of the iterator is used as the starting point for the delta-encoding.
-    /// 
+    ///
     /// ## Example
     /// ```
     /// use delta_encoding::DeltaEncoderExt;
