@@ -1,16 +1,11 @@
-use num_traits::CheckedSub;
+use num_traits::WrappingSub;
 
-impl<T: CheckedSub + Copy> DeltaEncoder<T> {
+impl<T: WrappingSub + Copy> DeltaEncoder<T> {
     /// Encode a value, and return the delta between the current value and the encoded value.
-    /// Will return None if the value is too large to encode.
-    pub fn encode(&mut self, value: T) -> Option<T> {
-        match value.checked_sub(&self.current) {
-            Some(delta) => {
-                self.current = value;
-                Some(delta)
-            }
-            None => None,
-        }
+    pub fn encode(&mut self, value: T) -> T {
+        let delta = value.wrapping_sub(&self.current);
+        self.current = value;
+        delta
     }
 }
 
@@ -26,7 +21,7 @@ pub struct DeltaEncoder<T> {
 pub struct DeltaEncoderIter<I>
 where
     I: Iterator,
-    <I as Iterator>::Item: CheckedSub + Copy,
+    <I as Iterator>::Item: WrappingSub + Copy,
 {
     iter: I,
     encoder: DeltaEncoder<I::Item>,
@@ -35,17 +30,13 @@ where
 impl<I> Iterator for DeltaEncoderIter<I>
 where
     I: Iterator,
-    <I as Iterator>::Item: CheckedSub + Copy,
+    <I as Iterator>::Item: WrappingSub + Copy,
 {
     type Item = I::Item;
 
     fn next(&mut self) -> Option<Self::Item> {
         match self.iter.next() {
-            Some(v) => Some(
-                self.encoder
-                    .encode(v)
-                    .expect("delta exceeded maximum allowed value"),
-            ),
+            Some(v) => Some(self.encoder.encode(v)),
             None => None,
         }
     }
@@ -57,7 +48,7 @@ where
 
 pub trait DeltaEncoderExt<T>: Iterator<Item = T>
 where
-    T: Default + Copy + CheckedSub,
+    T: Default + Copy + WrappingSub,
 {
     /// Construct a delta-encoded iterator from an iterator.
     /// The first element of the iterator is used as the starting point for the delta-encoding.
@@ -67,10 +58,15 @@ where
     /// ```
     /// use delta_encoding::DeltaEncoderExt;
     ///
-    /// let mut encoded: Vec<i64> = vec![1, 2, 5, 4, 2].into_iter().to_deltas().collect();
+    /// // Consuming original data into a delta-encoded iterator.
+    /// let mut encoded: Vec<i64> = vec![1, 2, 5, 4, 2].into_iter().deltas().collect();
+    /// assert_eq!(encoded, vec![1, 1, 3, -1, -2]);
+    ///
+    /// // Non-consuming original data, but avoiding the allocation of a new vector.
+    /// let mut encoded: Vec<i64> = vec![1, 2, 5, 4, 2].iter().copied().deltas().collect();
     /// assert_eq!(encoded, vec![1, 1, 3, -1, -2]);
     /// ```
-    fn to_deltas(self) -> DeltaEncoderIter<Self>
+    fn deltas(self) -> DeltaEncoderIter<Self>
     where
         Self: Sized,
     {
@@ -84,6 +80,6 @@ where
 impl<I> DeltaEncoderExt<I::Item> for I
 where
     I: Iterator,
-    <I as Iterator>::Item: Default + Copy + CheckedSub,
+    <I as Iterator>::Item: Default + Copy + WrappingSub,
 {
 }

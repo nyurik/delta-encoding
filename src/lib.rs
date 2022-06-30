@@ -17,34 +17,26 @@ mod tests {
 
         let mut dlt = DeltaEncoder::default();
         for (&orig, &enc) in zip(original, encoded) {
-            assert_eq!(
-                dlt.encode(orig).unwrap(),
-                enc,
-                "individual encoded value mismatch"
-            );
+            assert_eq!(dlt.encode(orig), enc, "individual encoded value mismatch");
         }
 
         let mut dlt = DeltaEncoder::default();
-        let result: Vec<i64> = original.iter().map(|&v| dlt.encode(v).unwrap()).collect();
+        let result: Vec<i64> = original.iter().map(|&v| dlt.encode(v)).collect();
         assert_eq!(result, encoded, "encoded from: {original:?}");
 
         let mut dlt = DeltaDecoder::default();
-        let result: Vec<i64> = encoded.iter().map(|&v| dlt.decode(v).unwrap()).collect();
+        let result: Vec<i64> = encoded.iter().map(|&v| dlt.decode(v)).collect();
         assert_eq!(result, original, "decoded from: {encoded:?}");
 
-        let result: Vec<i64> = original.iter().copied().to_deltas().collect();
-        assert_eq!(result, encoded, "into_iter() original: {original:?}");
-
-        // TODO: allow non-consuming iterator
-        // let encoded: Vec<i64> = original.iter().to_deltas().collect();
-        // assert_eq!(encoded, encoded, "iter() original: {original:?}");
+        let result: Vec<i64> = original.iter().copied().deltas().collect();
+        assert_eq!(result, encoded, "iter().copied() original: {original:?}");
     }
 
     #[test]
     fn test() {
         // Delta encoding cannot support deltas bigger than i64::MAX (half the size of u64)
-        let min = i64::MIN / 2;
-        let max = i64::MAX / 2;
+        let min = i64::MIN;
+        let max = i64::MAX;
 
         run(&[], &[]);
         run(&[0], &[0]);
@@ -55,8 +47,11 @@ mod tests {
         run(&[1, 3, 10], &[1, 2, 7]);
         run(&[min], &[min]);
         run(&[max], &[max]);
-        run(&[max, min], &[max, (min - max)]);
+        run(&[max, min], &[max, min.wrapping_sub(max)]);
         run(&[0, max], &[0, max]);
-        run(&[0, max, min, max], &[0, max, (min - max), max + max + 1]);
+        run(
+            &[0, max, min, max],
+            &[0, max, min.wrapping_sub(max), max.wrapping_add(max) + 1],
+        );
     }
 }

@@ -23,8 +23,13 @@ use delta_encoding::DeltaEncoderExt;
 
 pub fn main() {
     let data = vec![1, 2, 5, 4, 2];
-    let encoded: Vec<i64> = data.into_iter().to_deltas().collect();
 
+    // Delta-encode without consuming, and without making a vector copy
+    let encoded: Vec<i64> = data.iter().copied().deltas().collect();
+    assert_eq!(encoded, vec![1, 1, 3, -1, -2]);
+
+    // Consume and delta-encode
+    let encoded: Vec<i64> = data.into_iter().deltas().collect();
     assert_eq!(encoded, vec![1, 1, 3, -1, -2]);
 }
 ```
@@ -37,6 +42,3 @@ cargo bench   # Benchmarking
 cargo fmt     # Code format
 cargo clippy  # Code lints
 ```
-
-## TODO
-* implement a non-consuming iterator, e.g. `data.iter().as_deltas().collect()`
