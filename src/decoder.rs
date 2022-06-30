@@ -7,8 +7,13 @@ pub struct DeltaDecoder<T> {
 }
 
 impl<T: CheckedAdd + Copy> DeltaDecoder<T> {
-    pub fn decode(&mut self, value: T) -> T {
-        self.current = self.current.checked_add(&value).unwrap();
-        self.current
+    pub fn decode(&mut self, value: T) -> Option<T> {
+        match self.current.checked_add(&value) {
+            Some(value) => {
+                self.current = value;
+                Some(value)
+            }
+            None => None,
+        }
     }
 }

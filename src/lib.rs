@@ -17,7 +17,11 @@ mod tests {
 
         let mut dlt = DeltaEncoder::default();
         for (&orig, &enc) in zip(original, encoded) {
-            assert_eq!(dlt.encode(orig).unwrap(), enc);
+            assert_eq!(
+                dlt.encode(orig).unwrap(),
+                enc,
+                "individual encoded value mismatch"
+            );
         }
 
         let mut dlt = DeltaEncoder::default();
@@ -25,7 +29,7 @@ mod tests {
         assert_eq!(result, encoded, "encoded from: {original:?}");
 
         let mut dlt = DeltaDecoder::default();
-        let result: Vec<i64> = encoded.iter().map(|&v| dlt.decode(v)).collect();
+        let result: Vec<i64> = encoded.iter().map(|&v| dlt.decode(v).unwrap()).collect();
         assert_eq!(result, original, "decoded from: {encoded:?}");
 
         let result: Vec<i64> = original.iter().copied().to_deltas().collect();
