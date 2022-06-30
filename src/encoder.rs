@@ -35,10 +35,7 @@ where
     type Item = I::Item;
 
     fn next(&mut self) -> Option<Self::Item> {
-        match self.iter.next() {
-            Some(v) => Some(self.encoder.encode(v)),
-            None => None,
-        }
+        Some(self.encoder.encode(self.iter.next()?))
     }
 
     fn size_hint(&self) -> (usize, Option<usize>) {
@@ -46,9 +43,9 @@ where
     }
 }
 
-pub trait DeltaEncoderExt<T>: Iterator<Item = T>
+pub trait DeltaEncoderExt: Iterator
 where
-    T: Default + Copy + WrappingSub,
+    <Self as Iterator>::Item: Default + Copy + WrappingSub,
 {
     /// Construct a delta-encoded iterator from an iterator.
     /// The first element of the iterator is used as the starting point for the delta-encoding.
@@ -77,7 +74,7 @@ where
     }
 }
 
-impl<I> DeltaEncoderExt<I::Item> for I
+impl<I> DeltaEncoderExt for I
 where
     I: Iterator,
     <I as Iterator>::Item: Default + Copy + WrappingSub,
