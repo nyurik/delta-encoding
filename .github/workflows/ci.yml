@@ -23,3 +23,7 @@ jobs:
       - run: cargo test
       - run: cargo clippy -- -Dwarnings
       - run: cargo bench
+#      - name: Coveralls
+#        uses: coverallsapp/github-action
+#        with:
+#          github-token: ${{ secrets.GITHUB_TOKEN }}

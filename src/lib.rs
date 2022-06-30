@@ -27,12 +27,12 @@ mod tests {
         assert_eq!(result, encoded, "encoded from: {original:?}");
 
         let mut dec = DeltaDecoder::default();
-        let result: Vec<i64> = encoded  .iter().map(|&v| dec.decode(v)).collect();
+        let result: Vec<i64> = encoded.iter().map(|&v| dec.decode(v)).collect();
         assert_eq!(result, original, "decoded from: {encoded:?}");
-        
+
         let result: Vec<i64> = original.iter().copied().deltas().collect();
         assert_eq!(result, encoded, "iter().copied() original: {original:?}");
-        
+
         let result: Vec<i64> = encoded.iter().copied().original().collect();
         assert_eq!(result, original, "iter().copied() encoded: {encoded:?}");
 

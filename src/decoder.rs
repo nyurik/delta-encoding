@@ -17,18 +17,18 @@ impl<T: WrappingAdd + Copy> DeltaDecoder<T> {
 #[derive(Debug)]
 #[must_use = "iterator adaptors are lazy and do nothing unless consumed"]
 pub struct DeltaDecoderIter<I>
-    where
-        I: Iterator,
-        <I as Iterator>::Item: WrappingAdd + Copy,
+where
+    I: Iterator,
+    <I as Iterator>::Item: WrappingAdd + Copy,
 {
     iter: I,
     decoder: DeltaDecoder<I::Item>,
 }
 
 impl<I> Iterator for DeltaDecoderIter<I>
-    where
-        I: Iterator,
-        <I as Iterator>::Item: WrappingAdd + Copy,
+where
+    I: Iterator,
+    <I as Iterator>::Item: WrappingAdd + Copy,
 {
     type Item = I::Item;
 
@@ -42,8 +42,8 @@ impl<I> Iterator for DeltaDecoderIter<I>
 }
 
 pub trait DeltaDecoderExt: Iterator
-    where
-        <Self as Iterator>::Item: Default + Copy + WrappingAdd,
+where
+    <Self as Iterator>::Item: Default + Copy + WrappingAdd,
 {
     /// Construct a delta-decoded iterator from an iterator.
     /// The first element of the iterator is used as the starting point for the delta-encoding.
@@ -62,8 +62,8 @@ pub trait DeltaDecoderExt: Iterator
     /// assert_eq!(decoded, vec![1, 2, 5, 4, 2]);
     /// ```
     fn original(self) -> DeltaDecoderIter<Self>
-        where
-            Self: Sized,
+    where
+        Self: Sized,
     {
         DeltaDecoderIter {
             iter: self,
@@ -73,8 +73,8 @@ pub trait DeltaDecoderExt: Iterator
 }
 
 impl<I> DeltaDecoderExt for I
-    where
-        I: Iterator,
-        <I as Iterator>::Item: Default + Copy + WrappingAdd,
+where
+    I: Iterator,
+    <I as Iterator>::Item: Default + Copy + WrappingAdd,
 {
 }
