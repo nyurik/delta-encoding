@@ -1,76 +1,42 @@
-    use criterion::{black_box, criterion_group, criterion_main, Criterion};
+use criterion::{black_box, criterion_group, criterion_main, Criterion, Throughput};
 use delta_encoding::{DeltaEncoder, DeltaEncoderExt};
 
-criterion_group!(
-    benches,
-    bench_map_empty,
-    bench_map_short,
-    bench_map_long,
-    bench_deltas_empty,
-    bench_deltas_short,
-    bench_deltas_long
-);
+criterion_group!(benches, bench_map, bench_iter);
 criterion_main!(benches);
 
-fn bench_map_empty(c: &mut Criterion) {
-    c.bench_function("map empty", |b| {
-        b.iter(|| {
-            let mut enc = DeltaEncoder::default();
-            (0..1).map(|v| enc.encode(v)).for_each(|x: i64| {
-                black_box(x);
-            });
-        })
-    });
-}
+fn bench_map(c: &mut Criterion) {
+    let samples: &[u64] = &[1, 1000, 100000];
 
-fn bench_map_short(c: &mut Criterion) {
-    c.bench_function("map short", |b| {
-        b.iter(|| {
-            let mut enc = DeltaEncoder::default();
-            (0..1000).map(|v| enc.encode(v)).for_each(|x: i64| {
-                black_box(x);
-            });
-        })
-    });
-}
-
-fn bench_map_long(c: &mut Criterion) {
-    c.bench_function("map long", |b| {
-        b.iter(|| {
-            let mut enc = DeltaEncoder::default();
-            (0..100000).map(|v| enc.encode(v)).for_each(|x: i64| {
-                black_box(x);
-            });
-        })
-    });
-}
-
-fn bench_deltas_empty(c: &mut Criterion) {
-    c.bench_function("deltas empty", |b| {
-        b.iter(|| {
-            (0..1).deltas().for_each(|x: i64| {
-                black_box(x);
+    let mut group = c.benchmark_group("mapping");
+    for count in samples.iter() {
+        group.throughput(Throughput::Bytes(*count * 8));
+        group.bench_function(format!("Encode {count} i64 values"), move |b| {
+            b.iter(|| {
+                let mut enc = DeltaEncoder::default();
+                (0..(*count as i64))
+                    .map(|v| enc.encode(v))
+                    .for_each(|x: i64| {
+                        black_box(x);
+                    })
             })
-        })
-    });
+        });
+    }
+    group.finish();
 }
 
-fn bench_deltas_short(c: &mut Criterion) {
-    c.bench_function("deltas short", |b| {
-        b.iter(|| {
-            (0..1000).deltas().for_each(|x: i64| {
-                black_box(x);
-            })
-        })
-    });
-}
+fn bench_iter(c: &mut Criterion) {
+    let samples: &[u64] = &[1, 1000, 100000];
 
-fn bench_deltas_long(c: &mut Criterion) {
-    c.bench_function("deltas long", |b| {
-        b.iter(|| {
-            (0..100000).deltas().for_each(|x: i64| {
-                black_box(x);
+    let mut group = c.benchmark_group("iterator");
+    for count in samples.iter() {
+        group.throughput(Throughput::Bytes(*count * 8));
+        group.bench_function(format!("Encode {count} i64 values"), move |b| {
+            b.iter(|| {
+                (0..(*count as i64)).deltas().for_each(|x: i64| {
+                    black_box(x);
+                })
             })
-        })
-    });
+        });
+    }
+    group.finish();
 }

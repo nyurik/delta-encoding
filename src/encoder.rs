@@ -1,5 +1,11 @@
 use num_traits::WrappingSub;
 
+/// Construct a delta-encoder
+#[derive(Debug, Default, Copy, Clone)]
+pub struct DeltaEncoder<T> {
+    current: T,
+}
+
 impl<T: WrappingSub + Copy> DeltaEncoder<T> {
     /// Encode a value, and return the delta between the current value and the encoded value.
     pub fn encode(&mut self, value: T) -> T {
@@ -7,12 +13,6 @@ impl<T: WrappingSub + Copy> DeltaEncoder<T> {
         self.current = value;
         delta
     }
-}
-
-/// Construct a delta-encoder
-#[derive(Debug, Default, Copy, Clone)]
-pub struct DeltaEncoder<T> {
-    current: T,
 }
 
 /// A utility struct to construct a delta-encoded sequence from an iterator.
