@@ -43,6 +43,13 @@ where
     }
 }
 
+impl<I> ExactSizeIterator for DeltaEncoderIter<I>
+where
+    I: ExactSizeIterator,
+    <I as Iterator>::Item: WrappingSub + Copy,
+{
+}
+
 pub trait DeltaEncoderExt: Iterator
 where
     <Self as Iterator>::Item: Default + Copy + WrappingSub,
