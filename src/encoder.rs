@@ -87,3 +87,25 @@ where
     <I as Iterator>::Item: Default + Copy + WrappingSub,
 {
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::tests::TEST_DATA;
+
+    fn run(original: &[i64], encoded: &[i64]) {
+        let mut enc = DeltaEncoder::default();
+        let result: Vec<i64> = original.iter().map(|&v| enc.encode(v)).collect();
+        assert_eq!(result, encoded, "encoded from: {original:?}");
+
+        let result: Vec<i64> = original.iter().copied().deltas().collect();
+        assert_eq!(result, encoded, "iter().copied() original: {original:?}");
+    }
+
+    #[test]
+    fn test() {
+        for &(original, encoded) in TEST_DATA {
+            run(original, encoded);
+        }
+    }
+}
