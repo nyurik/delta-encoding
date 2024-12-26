@@ -74,7 +74,7 @@ where
     {
         DeltaDecoderIter {
             iter: self,
-            decoder: Default::default(),
+            decoder: DeltaDecoder::default(),
         }
     }
 }
