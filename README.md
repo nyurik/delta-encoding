@@ -25,25 +25,25 @@ the delta-encoded stream would be:
 use delta_encoding::{DeltaEncoderExt, DeltaDecoderExt};
 
 pub fn main() {
-    let data = vec![1, 2, 5, 4, 2];
+  let data = vec![1, 2, 5, 4, 2];
 
-    // Delta-encode without consuming, and without making a vector copy
-    let encoded: Vec<i64> = data.iter().copied().deltas().collect();
-    assert_eq!(encoded, vec![1, 1, 3, -1, -2]);
+  // Delta-encode without consuming, and without making a vector copy
+  let encoded: Vec<i64> = data.iter().copied().deltas().collect();
+  assert_eq!(encoded, vec![1, 1, 3, -1, -2]);
 
-    // Consume and delta-encode
-    let encoded: Vec<i64> = data.into_iter().deltas().collect();
-    assert_eq!(encoded, vec![1, 1, 3, -1, -2]);
+  // Consume and delta-encode
+  let encoded: Vec<i64> = data.into_iter().deltas().collect();
+  assert_eq!(encoded, vec![1, 1, 3, -1, -2]);
 
-    let data = vec![1, 1, 3, -1, -2];
+  let data = vec![1, 1, 3, -1, -2];
 
-    // Delta-decode without consuming, and without making a vector copy
-    let decoded: Vec<i64> = data.iter().copied().original().collect();
-    assert_eq!(decoded, vec![1, 2, 5, 4, 2]);
+  // Delta-decode without consuming, and without making a vector copy
+  let decoded: Vec<i64> = data.iter().copied().original().collect();
+  assert_eq!(decoded, vec![1, 2, 5, 4, 2]);
 
-    // Consume and delta-decode
-    let decoded: Vec<i64> = data.into_iter().original().collect();
-    assert_eq!(decoded, vec![1, 2, 5, 4, 2]);
+  // Consume and delta-decode
+  let decoded: Vec<i64> = data.into_iter().original().collect();
+  assert_eq!(decoded, vec![1, 2, 5, 4, 2]);
 }
 ```
 

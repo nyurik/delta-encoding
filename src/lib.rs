@@ -1,14 +1,11 @@
-#[doc = include_str ! ("../README.md")]
-#[cfg(doctest)]
-pub struct ReadmeDoctests;
-
-mod encoder;
-
-pub use encoder::{DeltaEncoder, DeltaEncoderExt, DeltaEncoderIter};
+#![allow(clippy::needless_doctest_main)]
+#![doc = include_str!("../README.md")]
 
 mod decoder;
+mod encoder;
 
 pub use decoder::{DeltaDecoder, DeltaDecoderExt, DeltaDecoderIter};
+pub use encoder::{DeltaEncoder, DeltaEncoderExt, DeltaEncoderIter};
 
 #[cfg(test)]
 mod tests {
