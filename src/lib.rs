@@ -12,8 +12,9 @@ pub use decoder::{DeltaDecoder, DeltaDecoderExt, DeltaDecoderIter};
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use std::iter::zip;
+
+    use super::*;
 
     pub(crate) const TEST_DATA: &[(&[i64], &[i64])] = &[
         (&[], &[]),
