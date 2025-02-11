@@ -8,7 +8,7 @@ edition = "2021"
 license = "MIT OR Apache-2.0"
 keywords = ["delta-encoding", "encoding", "encoder", "decoder", "protobuf"]
 categories = ["encoding"]
-rust-version = "1.78.0"
+rust-version = "1.78"
 
 [dependencies]
 num-traits = "0.2"
