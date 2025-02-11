@@ -42,7 +42,6 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: ${{ steps.metadata.outputs.rust-version }}
-          components: rustfmt
       - run: just ci-test-msrv
 
   publish:
