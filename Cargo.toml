@@ -6,7 +6,7 @@ default-members = ["."]
 
 [package]
 name = "delta-encoding"
-version = "0.4.2"
+version = "0.4.3"
 description = "A library to encode and decode a delta-encoded stream of numbers"
 authors = ["Yuri Astrakhan <YuriAstrakhan@gmail.com>"]
 repository = "https://github.com/nyurik/delta-encoding"
