@@ -5,6 +5,7 @@
 [![docs.rs](https://img.shields.io/docsrs/delta-encoding)](https://docs.rs/delta-encoding)
 [![crates.io license](https://img.shields.io/crates/l/delta-encoding)](https://github.com/nyurik/delta-encoding/blob/main/LICENSE-APACHE)
 [![CI build](https://github.com/nyurik/delta-encoding/actions/workflows/ci.yml/badge.svg)](https://github.com/nyurik/delta-encoding/actions)
+[![Codecov](https://img.shields.io/codecov/c/github/nyurik/delta-encoding)](https://app.codecov.io/gh/nyurik/delta-encoding)
 
 
 A simple library for encoding and decoding a stream of values as delta-encoded.  For example, if you have a stream of values like this:
