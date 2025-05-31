@@ -10,14 +10,6 @@ bench:
     cargo bench -p bench
     open target/criterion/DupIndexer/report/index.html
 
-# Check if a certain Cargo command is installed, and install it if needed
-[private]
-cargo-install $COMMAND $INSTALL_CMD="" *ARGS="":
-    @if ! command -v $COMMAND > /dev/null; then \
-        echo "$COMMAND could not be found. Installing it with    cargo install ${INSTALL_CMD:-$COMMAND} {{ARGS}}" ;\
-        cargo install ${INSTALL_CMD:-$COMMAND} {{ARGS}} ;\
-    fi
-
 build:
     cargo build --workspace --all-targets
 
@@ -45,10 +37,6 @@ check-if-published:
 check-msrv:
     RUSTFLAGS='-D warnings' cargo check --all-targets
 
-# Generate code coverage report
-coverage *ARGS="--no-clean --open":
-    cargo llvm-cov --workspace --all-targets --include-build-script {{ARGS}}
-
 # Generate code coverage report to upload to codecov.io
 ci-coverage: && \
             (coverage '--codecov --output-path target/llvm-cov/codecov.info')
@@ -69,6 +57,10 @@ clean:
 # Run cargo clippy to lint the code
 clippy:
     cargo clippy --workspace --all-targets -- -D warnings
+
+# Generate code coverage report
+coverage *ARGS="--no-clean --open":
+    cargo llvm-cov --workspace --all-targets --include-build-script {{ARGS}}
 
 # Build and open code documentation
 docs:
@@ -131,3 +123,11 @@ udeps:
 update:
     cargo +nightly -Z unstable-options update --breaking
     cargo update
+
+# Check if a certain Cargo command is installed, and install it if needed
+[private]
+cargo-install $COMMAND $INSTALL_CMD="" *ARGS="":
+    @if ! command -v $COMMAND > /dev/null; then \
+        echo "$COMMAND could not be found. Installing it with    cargo install ${INSTALL_CMD:-$COMMAND} {{ARGS}}" ;\
+        cargo install ${INSTALL_CMD:-$COMMAND} {{ARGS}} ;\
+    fi
