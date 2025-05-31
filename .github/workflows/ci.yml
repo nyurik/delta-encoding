@@ -46,10 +46,7 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: ${{ steps.msrv.outputs.value }}
-      - run: just ci-test-msrv
-        env:
-          # Ignore warnings in MSRV. Sadly, this cannot be done inside `just ci-test-msrv`
-          CI: ''
+      - run: just ci_mode=0 ci-test-msrv  # Ignore warnings in MSRV
 
   coverage:
     name: Code Coverage
@@ -80,7 +77,8 @@ jobs:
         run: exit 1
 
   release:
-    if: startsWith(github.ref, 'refs/tags/')
+    # Some dependencies of the `ci-passed` job might be skipped, but we still want to run if the `ci-passed` job succeeded.
+    if: always() && startsWith(github.ref, 'refs/tags/') && needs.ci-passed.result == 'success'
     name: Publish to crates.io
     needs: [ ci-passed ]
     runs-on: ubuntu-latest
