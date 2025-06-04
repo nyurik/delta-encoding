@@ -1,10 +1,10 @@
 # Delta-Encoding library
 
-[![GitHub](https://img.shields.io/badge/github-nyurik/delta--encoding-8da0cb?logo=github)](https://github.com/nyurik/delta-encoding)
+[![GitHub repo](https://img.shields.io/badge/github-nyurik/delta--encoding-8da0cb?logo=github)](https://github.com/nyurik/delta-encoding)
 [![crates.io version](https://img.shields.io/crates/v/delta-encoding)](https://crates.io/crates/delta-encoding)
-[![docs.rs](https://img.shields.io/docsrs/delta-encoding)](https://docs.rs/delta-encoding)
+[![docs.rs status](https://img.shields.io/docsrs/delta-encoding)](https://docs.rs/delta-encoding)
 [![crates.io license](https://img.shields.io/crates/l/delta-encoding)](https://github.com/nyurik/delta-encoding/blob/main/LICENSE-APACHE)
-[![CI build](https://github.com/nyurik/delta-encoding/actions/workflows/ci.yml/badge.svg)](https://github.com/nyurik/delta-encoding/actions)
+[![CI build status](https://github.com/nyurik/delta-encoding/actions/workflows/ci.yml/badge.svg)](https://github.com/nyurik/delta-encoding/actions)
 [![Codecov](https://img.shields.io/codecov/c/github/nyurik/delta-encoding)](https://app.codecov.io/gh/nyurik/delta-encoding)
 
 
