@@ -27,21 +27,6 @@ build:
 check:
     cargo check --workspace --all-targets {{features_flag}}
 
-# Verify that the current version of the crate is not the same as the one published on crates.io
-check-if-published package=main_crate:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    LOCAL_VERSION="$({{just_executable()}} get-crate-field version {{package}})"
-    echo "Detected crate {{package}} version:  '$LOCAL_VERSION'"
-    PUBLISHED_VERSION="$(cargo search --quiet {{package}} | grep "^{{package}} =" | sed -E 's/.* = "(.*)".*/\1/')"
-    echo "Published crate version: '$PUBLISHED_VERSION'"
-    if [ "$LOCAL_VERSION" = "$PUBLISHED_VERSION" ]; then
-        echo "ERROR: The current crate version has already been published."
-        exit 1
-    else
-        echo "The current crate version has not yet been published."
-    fi
-
 # Quick compile for MSRV, without compiling benches
 check-msrv:
     cargo check --all-targets
