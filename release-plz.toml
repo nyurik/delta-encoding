@@ -1,2 +1,5 @@
 [workspace]
 git_tag_name = "v{{ version }}"
+
+[[package]]
+name = "delta-encoding"
