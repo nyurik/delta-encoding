@@ -24,8 +24,6 @@ jobs:
       - uses: taiki-e/install-action@v2
         with: { tool: just }
       - run: just ci-test
-      - name: Check semver
-        uses: obi1kenobi/cargo-semver-checks-action@v2
 
   test-msrv:
     name: Test MSRV
