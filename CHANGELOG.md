@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.9](https://github.com/nyurik/delta-encoding/compare/v0.4.8...v0.4.9) - 2025-06-11
+
+### Other
+
+- use release-plz token in dependabot ci
+
 ## [0.4.8](https://github.com/nyurik/delta-encoding/compare/v0.4.7...v0.4.8) - 2025-06-08
 
 ### Added
