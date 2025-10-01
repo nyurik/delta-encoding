@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.9](https://github.com/nyurik/delta-encoding/compare/v0.4.8...v0.4.9) - 2025-10-01
+
+### Other
+
+- use automatic crates.io token
+- add more linting
+- *(just)* minor justfile cleanup
+- *(just)* minor justfile cleanup
+- *(ci)* improve cargo-install recipe
+- *(ci)* disable telemetry in workflow
+- improve get-create-field in justfile
+- Update criterion requirement from 0.6 to 0.7 in the all-cargo-version-updates group ([#25](https://github.com/nyurik/delta-encoding/pull/25))
+- format Cargo.toml, minor just cleanup ([#27](https://github.com/nyurik/delta-encoding/pull/27))
+- [pre-commit.ci] pre-commit autoupdate ([#26](https://github.com/nyurik/delta-encoding/pull/26))
+- use release-plz token in dependabot ci
+
 ## [0.4.8](https://github.com/nyurik/delta-encoding/compare/v0.4.7...v0.4.8) - 2025-06-08
 
 ### Added
