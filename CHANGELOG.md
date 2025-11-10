@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.10](https://github.com/nyurik/delta-encoding/compare/v0.4.9...v0.4.10) - 2025-11-10
+
+### Other
+
+- fix broken links
+- minor justfile adjustments
+
 ## [0.4.9](https://github.com/nyurik/delta-encoding/compare/v0.4.8...v0.4.9) - 2025-10-01
 
 ### Other
