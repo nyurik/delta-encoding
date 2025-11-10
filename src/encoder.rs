@@ -56,7 +56,7 @@ where
 {
     /// Construct a delta-encoded iterator from an iterator.
     /// The first element of the iterator is used as the starting point for the delta-encoding.
-    /// Note that unlike the [`DeltaEncoder.encode`] method, this method will panic if the delta is too large.
+    /// Note that unlike the `DeltaEncoder.encode` method, this method will panic if the delta is too large.
     ///
     /// ## Example
     /// ```
