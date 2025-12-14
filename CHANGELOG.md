@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.11](https://github.com/nyurik/delta-encoding/compare/v0.4.10...v0.4.11) - 2025-12-14
+
+### Other
+
+- add .editorconfig, minor cleanups ([#32](https://github.com/nyurik/delta-encoding/pull/32))
+- add .editorconfig
+- *(deps)* bump actions/checkout from 5 to 6 in the all-actions-version-updates group ([#29](https://github.com/nyurik/delta-encoding/pull/29))
+- minor justfile adjustments
+
 ## [0.4.10](https://github.com/nyurik/delta-encoding/compare/v0.4.9...v0.4.10) - 2025-11-10
 
 ### Other
