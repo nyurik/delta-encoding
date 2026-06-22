@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.11](https://github.com/nyurik/delta-encoding/compare/v0.4.10...v0.4.11) - 2026-06-22
+
+### Other
+
+- update .gitignore
+- format justfile
+- *(deps)* bump actions/checkout from 6 to 7 in the all-actions-version-updates group ([#39](https://github.com/nyurik/delta-encoding/pull/39))
+- coverage, justfile, msrv ([#38](https://github.com/nyurik/delta-encoding/pull/38))
+- *(deps)* bump codecov/codecov-action from 6 to 7 in the all-actions-version-updates group ([#37](https://github.com/nyurik/delta-encoding/pull/37))
+- *(deps)* bump the all-actions-version-updates group across 1 directory with 2 updates ([#35](https://github.com/nyurik/delta-encoding/pull/35))
+- *(deps)* update criterion requirement from 0.7 to 0.8 in the all-cargo-version-updates group ([#36](https://github.com/nyurik/delta-encoding/pull/36))
+- [pre-commit.ci] pre-commit autoupdate ([#33](https://github.com/nyurik/delta-encoding/pull/33))
+- add .editorconfig, minor cleanups ([#32](https://github.com/nyurik/delta-encoding/pull/32))
+- add .editorconfig
+- *(deps)* bump actions/checkout from 5 to 6 in the all-actions-version-updates group ([#29](https://github.com/nyurik/delta-encoding/pull/29))
+- minor justfile adjustments
+
 ## [0.4.10](https://github.com/nyurik/delta-encoding/compare/v0.4.9...v0.4.10) - 2025-11-10
 
 ### Other
