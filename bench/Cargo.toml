@@ -14,3 +14,6 @@ delta-encoding = { path = ".." }
 
 [dev-dependencies]
 criterion = { version = "0.8", features = ["html_reports"] }
+
+[lints]
+workspace = true
